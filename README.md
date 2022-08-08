@@ -1,2 +1,2 @@
 # LinguagemC_AED
-repositório de estudos da dsciplina
+repositório de estudos da disciplina

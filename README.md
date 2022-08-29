@@ -3,7 +3,8 @@
 ## Repositório de estudos da disciplina de Algoritmos e Estrutura de Dados 
 
 ### Nome: Rávilon Aguiar Dos Santos
-### Regra de identação ultilizada: https://fabiensanglard.net/fd_proxy/doom3/CodeStyleConventions.pdf ###
+### Regra de identação ultilizada: https://fabiensanglard.net/fd_proxy/doom3/CodeStyleConventions.pdf 
+### Link do Video Explicando: https://drive.google.com/file/d/1EbHh6i4ilDELiXD9-DEEVtQy3TtWBSB2/view?usp=sharing
 
 Exercicio Avaliatiov 26/08 -> AtividadeAvaliativa_01/exercicio-ras.c
 ===================================================================================================

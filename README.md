@@ -3,9 +3,9 @@
 ## Repositório de estudos da disciplina de Algoritmos e Estrutura de Dados 
 
 ### Nome: Rávilon Aguiar Dos Santos
-### Regra de identação ultilizada: https://fabiensanglard.net/fd_proxy/doom3/CodeStyleConventions.pdf
+### Regra de identação ultilizada: https://fabiensanglard.net/fd_proxy/doom3/CodeStyleConventions.pdf ###
 
-#####Exercicio Avaliatiov 26/08 -> AtividadeAvaliativa_01/exercicio-ras.c
+Exercicio Avaliatiov 26/08 -> AtividadeAvaliativa_01/exercicio-ras.c
 ===================================================================================================
 Faça um programa que solicita do usuário uma série de números, cada número pode ser um
 int, float ou double. Antes de solicitar o número pergunte qual tipo de dado o usuário vai entrar.

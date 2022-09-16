@@ -1,8 +1,0 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/home/ravilon/Desktop/AED/LinguagemC_AED/exercicio'
-mkdir -p output
-gcc -Wall -Wextra -g -Iinclude -c src/main.c  -o src/main.o
-gcc -Wall -Wextra -g -Iinclude -o output/main src/main.o  -Llib
-echo Executing 'all' complete!
-make: Leaving directory '/home/ravilon/Desktop/AED/LinguagemC_AED/exercicio'
- 

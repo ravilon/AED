@@ -34,12 +34,12 @@ nome[10]char // idade[1]int // telefone[1]int
 // ======================================Declaração de Variáveis=================================
 
 void *pBuffer;                                  // Ponteiro que guarda o Buffer
-void *pPosicaoBuffer;                           // Ponteiro que guarda o próximo endereço vazio no buffer
-char *pNome;                                    // Ponteiro que guarda o nome a ser adcionado ao buffer
+void *pPositionBuffer;                           // Ponteiro que guarda o próximo endereço vazio no buffer
+char *pName;                                    // Ponteiro que guarda o nome a ser adcionado ao buffer
 int  *pIdade;                                   // Ponteiro que guarda a idade a ser adcionado ao buffer
 int  *pNumero;                                  // Ponteiro que guarda o numero a ser adcionado ao buffer
 int *pNumeroPessoas;                            // Ponteiro que guarda o número de Pessoas na agenda
-int *pTamanhoBuffer;                            // Ponteiro que guarda o tamanho do buffer em bytes
+int *pSizeBuffer;                            // Ponteiro que guarda o tamanho do buffer em bytes
 int *pMenu;                                     // Ponteiro que guarda a opção do menu
 int *pTamanhoPessoa;                            // Ponteiro que guarda o tamanho de uma pessoa
 int *pContador;                                 // Ponteiro usado como contador em laços de repetição
@@ -57,6 +57,14 @@ void Listar_r();    //OK
 void RealocaMemoria();
 void ReposicionaPonteiro();
 
+// ======================================Queue Functions=================================
+
+void RESET();
+void PUSH();
+void POP();
+void EMPTY();
+void CLEAR();
+
 /*
 ====================
 Int Main
@@ -67,7 +75,7 @@ Main
 int main () {
 
     pMenu = (int*)malloc( sizeof( int ) ); 
-    pTamanhoBuffer = (int*)malloc( sizeof( int ) );
+    pSizeBuffer = (int*)malloc( sizeof( int ) );
     pNumeroPessoas = (int*)malloc( sizeof( int ) ); 
     pTamanhoPessoa = (int*)malloc( sizeof( int ) ); 
 
@@ -84,7 +92,7 @@ int main () {
 
     free( pMenu );
     free( pNumeroPessoas );
-    free( pTamanhoBuffer );
+    free( pSizeBuffer );
     free( pTamanhoPessoa );
     free( pBuffer );
     return 0;
@@ -134,8 +142,8 @@ utilizada pBuffer
 ====================
 */
 void RealocaMemoria() {
-    *(int*)pTamanhoBuffer = *( int* )pNumeroPessoas * (10* sizeof( char ) + sizeof( int ) + sizeof( int ));
-    pBuffer = realloc( pBuffer, *( int* )pTamanhoBuffer + (10* sizeof( char ) + sizeof( int ) + sizeof( int )));
+    *(int*)pSizeBuffer = *( int* )pNumeroPessoas * (10* sizeof( char ) + sizeof( int ) + sizeof( int ));
+    pBuffer = realloc( pBuffer, *( int* )pSizeBuffer + (10* sizeof( char ) + sizeof( int ) + sizeof( int )));
 }
 
 /*
@@ -143,12 +151,12 @@ void RealocaMemoria() {
 Reposiciona Ponteiro
 
 Reposiciona Ponteiro
-pPosicaoBuffer
+pPositionBuffer
 ====================
 */
 void ReposicionaPonteiro() {
-pPosicaoBuffer = pBuffer;
-pPosicaoBuffer += *(int*)pNumeroPessoas * *(int*)pTamanhoPessoa;    
+pPositionBuffer = pBuffer;
+pPositionBuffer += *(int*)pNumeroPessoas * *(int*)pTamanhoPessoa;    
 }
 
 /*
@@ -163,32 +171,32 @@ void Incluir() {
 RealocaMemoria();
 ReposicionaPonteiro();
 
-pNome = (char*)malloc( 10 * sizeof( char ));
+pName = (char*)malloc( 10 * sizeof( char ));
 pIdade = (int*)malloc( sizeof( int ) );
 pNumero = (int*)malloc( sizeof( int ) );
 
 // Acrescenta nome
 printf( "Digite o nome da pessoa: \n" );
-scanf( "%s", (char*)pNome );
-memcpy( pPosicaoBuffer, pNome, 10* sizeof( char ));
-pPosicaoBuffer += 10*sizeof( char );
+scanf( "%s", (char*)pName );
+memcpy( pPositionBuffer, pName, 10* sizeof( char ));
+pPositionBuffer += 10*sizeof( char );
 
 // Acrescenta Idade
 printf( "Digite a Idade da pessoa: \n" );
 scanf( "%d", pIdade );
-memcpy( pPosicaoBuffer, pIdade, sizeof( int ));
-pPosicaoBuffer += sizeof( int );
+memcpy( pPositionBuffer, pIdade, sizeof( int ));
+pPositionBuffer += sizeof( int );
 
 // Acrescenta numero
 printf( "Digite o numero da pessoa: \n" );
 scanf( "%d", pNumero );
-memcpy( pPosicaoBuffer, pNumero, sizeof( int ));
-pPosicaoBuffer += sizeof( int );
+memcpy( pPositionBuffer, pNumero, sizeof( int ));
+pPositionBuffer += sizeof( int );
 
 *(int*)pNumeroPessoas = *(int*)pNumeroPessoas + 1;
 
 free( pNumero );
-free( pNome );
+free( pName );
 free( pIdade );
 Menu();
 }
@@ -216,12 +224,12 @@ Agenda
 ====================
 */
 void Buscar_r() {
-pNome = (char*)malloc(10*sizeof(char))
+pName = (char*)malloc(10*sizeof(char))
 pContador = ( int* )malloc( sizeof( int ) );
 
 pritnf( "Essa busca será feita usando o número de telefone! \n" );
 pritnf( "Digite o nome desejado: " );
-scanf("%s", ( char* )pNome );
+scanf("%s", ( char* )pName );
 
 for (for (*( int* )pContador = 0; *( int* )pContador < *( int* )pNumeroPessoas; *( int* )pContador = *( int* )pContador + 1) {
 {
@@ -229,7 +237,7 @@ for (for (*( int* )pContador = 0; *( int* )pContador < *( int* )pNumeroPessoas; 
 }
 
 free( pContador );
-free( pNome );
+free( pName );
 Menu();
 }
 /*
@@ -241,38 +249,44 @@ na Agenda
 ====================
 */
 void Listar_r() {  
-pNome = ( char* )malloc( 10 * sizeof( char ));
+pName = ( char* )malloc( 10 * sizeof( char ));
 pIdade = ( int* )malloc( sizeof( int ) );
 pNumero = ( int*)malloc( sizeof( int ) );
 pContador = ( int* )malloc( sizeof( int ) );
 
-pPosicaoBuffer = pBuffer;
+pPositionBuffer = pBuffer;
 
 for (*( int* )pContador = 0; *( int* )pContador < *( int* )pNumeroPessoas; *( int* )pContador = *( int* )pContador + 1) {
     printf( "================Pessoa %d===============\n", *( int* )pContador );
 
     //Imprime o nome da pessoa
-    memcpy( pNome, pPosicaoBuffer, 10 * sizeof( char ) );
-    printf( "O nome da pessoa é: %s \n", pNome );
-    pPosicaoBuffer += 10 * sizeof( char );
+    memcpy( pName, pPositionBuffer, 10 * sizeof( char ) );
+    printf( "O nome da pessoa é: %s \n", pName );
+    pPositionBuffer += 10 * sizeof( char );
 
     //Imprime a idade
-    memcpy(pIdade, pPosicaoBuffer, sizeof( int ) );
+    memcpy(pIdade, pPositionBuffer, sizeof( int ) );
     printf( "Idade: %d \n", *( int* ) pIdade );
-    pPosicaoBuffer += sizeof( int );
+    pPositionBuffer += sizeof( int );
 
     //Imprime o numero 
-    memcpy(pNumero, pPosicaoBuffer, sizeof( int) );
+    memcpy(pNumero, pPositionBuffer, sizeof( int) );
     printf("Numero: %d \n", *(int*)pNumero );
-    pPosicaoBuffer += sizeof( int );
+    pPositionBuffer += sizeof( int );
 
     printf( "======================================\n" );
     }
 
 free( pContador);
-free( pNome );
+free( pName );
 free( pIdade );
 free( pNumero );
 
 Menu();
+}
+
+// Queue Functions
+
+void PUSH(){
+    
 }

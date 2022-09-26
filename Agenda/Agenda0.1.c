@@ -33,33 +33,30 @@ nome[10]char // idade[1]int // telefone[1]int
 
 // ======================================Declaração de Variáveis=================================
 
-void *pBuffer;                                  // Ponteiro que guarda o Buffer ( endereço do primeiro e ultimo )
-void *pPosition;                          // Ponteiro que guarda o próximo endereço vazio no buffer
+void **pTracker;
+void *pHead;                                  // Ponteiro que guarda o Buffer ( endereço do primeiro e ultimo )
+void *pPosition;                                // Ponteiro que guarda o próximo endereço vazio no buffer
 
-void *pPeople;
+void *pPeople;                                  // Ponteiro que guarda a Pessoa
 char *pName;                                    // Ponteiro que guarda o nome a ser adcionado ao pessoa
 int  *pAge;                                     // Ponteiro que guarda a idade a ser adcionado ao pessoa
 int  *pNumber;                                  // Ponteiro que guarda o numero a ser adcionado ao pessoa
 
 int *pCounterPeople;                            // Ponteiro que guarda o número de Pessoas na agenda
-int *pTamanhoBuffer;                            // Ponteiro que guarda o tamanho do buffer em bytes
 int *pMenu;                                     // Ponteiro que guarda a opção do menu
-int *pSizePeople;                            // Ponteiro que guarda o tamanho de uma pessoa
 int *pContador;                                 // Ponteiro usado como contador em laços de repetição
 
 // ======================================Declaração de Funções Menu====================================
 
 void Menu();        //OK
-void Insert();     //OK
+void Insert();      //OK
 void Apagar_r();    
 void Buscar_r();
-void Listar_r();    //OK
+void Listar_r();    
 
 // ======================================Declaração de Funções Memória=================================
 
-void RealocaMemoria();
-
-void PUSH(void *People);
+void PUSH();
 void POP();
 void RESET();
 void CLOSE();
@@ -77,12 +74,11 @@ int main () {
     pMenu = (int*)malloc( sizeof( int ) ); 
     pTamanhoBuffer = (int*)malloc( sizeof( int ) );
     pCounterPeople = (int*)malloc( sizeof( int ) ); 
-    pSizePeople = (int*)malloc( sizeof( int ) ); 
 
     *(int*)pCounterPeople = 0; // Numero de Pessoas na Lista
-    *(int*)pSizePeople =  10* sizeof(char) + 4*sizeof(int)  ; // Tamanho de 1 pessoa
 
-    pBuffer = (void*)malloc(sizeof(void));
+    pHead = (void*)malloc(sizeof(void));
+    pHead = NULL;
 
     printf( "==============================\n" );
     printf( "Bem vindo a Agenda\n" );
@@ -92,9 +88,7 @@ int main () {
 
     free( pMenu );
     free( pCounterPeople );
-    free( pTamanhoBuffer );
-    free( pSizePeople );
-    free( pBuffer );
+    free( pHead );
     return 0;
 }
 
@@ -139,15 +133,22 @@ RESET
 Starts the linked list
 ====================
 */
-void RESET( void *People ) {
+void RESET( pPeople ) {
 
-pBuffer = malloc(2*sizeof(void*));
-pPosition = pBuffer;
+//============header=================//
+pHead = malloc(2*sizeof(void**));
+*(void**)pHead = pPeople;
+pTracker = pHead;
 
-*(int*)pNumber = (void*)People;
-memcpy( pPosition, pNumber, sizeof( int ));
-pPosition += sizeof(void*);
-memcpy( pPosition, pNumber, sizeof( int ));
+pHead += sizeof(void**);
+*(void**)pHead = pPeople;
+pHead -= sizeof(void**);
+//===================================//
+
+*(void**)pPosition = NULL;
+pPosition += sizeof(void**);
+*(void**)pPosition = NULL; 
+
 }
 
 /*
@@ -157,29 +158,39 @@ PUSH
 Insert element on linked list
 ====================
 */
-void PUSH( void *People ) {
+void PUSH( pPeople ) {
+pContador = ( int* )malloc( sizeof( int ) );
 
-if ( pBuffer == NULL ) {
-    RESET(People);
+if ( pHead == NULL ) {
+    RESET( pPeople );
 }
 
+char *pNameNode;
+pNameNode = malloc(10*sizeof(char));
+pTracker = *( void** )pHead;
 
+else{
+    for (*( int* )pContador = 0; i < *( int* )pCounterPeople; *( int* )pContador++) {               
+            
+            memcpy (pNameNode, *(void**)pTracker, sizeof(10*char) );
+            int *result = getLexographicallyOrder(pName, pNameNode);
 
+    }
+}
 
-    
 }
 
 /*
 ====================
-Incluir
+Insert
 
-Inclui pessoa a 
-Agenda
+Insert a People
+on Agend
 ====================
 */
 void Insert() {
 
-pPeople = malloc(*( int* ) pSizePeople);
+pPeople = malloc( 10* sizeof(char) + 2*sizeof(int) + 2*sizeof(void**) );
 pPosition = pPeople;
 
 pName = ( char* )malloc( 10 * sizeof( char ));
@@ -262,7 +273,7 @@ pAge = ( int* )malloc( sizeof( int ) );
 pNumber = ( int*)malloc( sizeof( int ) );
 pContador = ( int* )malloc( sizeof( int ) );
 
-pPosition = pBuffer;
+pPosition = pHead;
 
 for (*( int* )pContador = 0; *( int* )pContador < *( int* )pCounterPeople; *( int* )pContador = *( int* )pContador + 1) {
     printf( "================Pessoa %d===============\n", *( int* )pContador );
@@ -291,5 +302,19 @@ free( pAge );
 free( pNumber );
 
 Menu();
+}
+
+int* getLexographicallyOrder(char* str1, char* str2){
+            while (str1 &&str2 && str1 ==str2) {
+            str1++;
+            str2++;
+            }
+            int *result = malloc(sizeof(int));
+            result = (str1 - str2);
+            if (result < 0)
+            result = -1;
+            else if (result > 0)
+            *result = 1;
+            return result;
 }
 

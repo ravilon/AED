@@ -12,90 +12,128 @@ FILO = First In Las Out
 
 void *pBuffer;
 void *pPositionBuffer;
-void *popBuffer;
+void *pPopBuffer;
+void *pPopPositionB;
 char *pChar;
 
 char character;
 int charCounter;
+int charCounterPop;
 
-RESET(char character);
-POP();
-PUSH(char character);
+void RESET();
+void POP();
+void PUSH();
 
-ReallocBuffer(int opcao);
+int TestPalindrome();
+void ReallocBuffer();
 
 int main (){
+
     pBuffer = (void*)malloc(2* sizeof(char));
-    pBuffer = NULL;
     
-    char character = "r";
     charCounter = 0;
     
-    printf("=======================" );
-    printf("Olá esse programa identifica palíndromos");
-    printf("Digite  uma letra por vez e aperte ENTER, quando concluir sua palavra insira x e pressione ENTER");
-    
-    while (character != "x")
+    printf("=======================\n" );
+    printf("Olá esse programa identifica palíndromos\n");
+    printf("Digite  uma letra por vez e aperte ENTER, quando concluir sua palavra insira x e pressione ENTER\n");
+    scanf("%c", &character);
+
+    while (character != 120)
     {
-        scanf("%c", &character);
-        PUSH(character);
-    }
+        PUSH();
+        printf("Digite mais uma letra e aperte ENTER, insira x e pressione ENTER para parar\n");
+        scanf("%s", &character);
+    } 
 
-    TestPalindrome();
+    int teste = TestPalindrome();
     
+    if (teste == 0) { 
+        printf("é um palindromo!");
+        }
+    else { printf("não é um palindromo!"); }
+    
+    pBuffer -= 2*sizeof(char);
+    pPopBuffer -= 2*sizeof(char);
 
+    free(pBuffer);
+    free(pPopBuffer);
     return 0;
 }
 
-ReallocBuffer(int opcao){   
+void ReallocBuffer(int opcao) {   
+
     if (opcao == 1){
 
     pBuffer = realloc( pBuffer, charCounter * 2*sizeof( char ) + 2*sizeof( char ) );
+    
     pPositionBuffer = pBuffer;
     pPositionBuffer += 2* sizeof(char);
 
     memcpy( pPositionBuffer, pBuffer, charCounter * 2*sizeof( char ));
     }
+}
 
-    if (opcao == 2){
+int TestPalindrome() {    
+int resultado;
     
+    if(charCounter % 2 == 0) {
+    charCounterPop = charCounter/2;
+    pPopBuffer = ( void* )malloc( charCounterPop * 2 *sizeof ( char )); 
+    pPopPositionB = pPopBuffer;
+        for (int i = 0; i < charCounter/2 ; i++) {
+            POP();
+            charCounterPop--;
+        }
+    
+    pBuffer += 2*sizeof(char);
+    resultado = strcmp( pBuffer, pPopBuffer);
+    return resultado;
+    }
+
+    else {
+         for (int i = 0; i < charCounter/2 ; i++) {    
+            POP();
+        }
+        pBuffer += 2*sizeof(char);
+        resultado = strcmp( pBuffer, pPopBuffer);
+        return resultado;    
     }
 }
 
-TestPalindrome(){
-
-}
-
-PUSH(char Character){  // PUSH pronto
+void PUSH(){  // PUSH pronto
+    
     pChar = malloc(2*sizeof(char));
-
+    strcpy(pChar, &character);
     pPositionBuffer = pBuffer;
-    if( pPositionBuffer == NULL ) { RESET( character ); }
-    else 
-    {
+
+    if( charCounter == 0 ) { RESET( character ); }
+    
+    else {
         ReallocBuffer(1);
         pPositionBuffer = pBuffer;
         strcpy( pPositionBuffer, pChar );    
     }
+    charCounter ++;
+}
+
+void POP(){
     
-    free(pChar);
+    pPositionBuffer = pBuffer;
+    pPositionBuffer += charCounter*2*sizeof(char) - 2*sizeof(char);
+    
+
+    strcpy(pPopPositionB, pPositionBuffer);
+    charCounterPop++;
+    pPopPositionB += 2*sizeof(char);
+    
+    pBuffer = realloc( pBuffer, charCounter * 2*sizeof( char ) - 2*sizeof( char ) );
+    charCounter --;
+
 }
 
-POP(){
-   pChar = malloc(2*sizeof(char));
-   
-   strcpy(pChar, pBuffer);
-   pPositionBuffer = pBuffer;
+void RESET(){ // Reset Pronto
 
-   free(pChar); 
+    pChar = &character;
+    strcpy(pBuffer, pChar);
+
 }
-
-RESET(char character){ // Reset Pronto
-pChar = malloc( 2*sizeof( char ));
-
-*pChar = character;
-strcpy(pBuffer, pChar);
-
-free(pChar);    
-}
-

@@ -29,13 +29,13 @@ Fazer um programa que testa se uma sequência de caracteres fornecida pelo
 usuário é um palíndromo, ou seja, é uma palavra cuja primeira metade é
 simétrica à segunda metade. Veja os exemplos:
 AABCCBAA
--
+
 sim
 ADDFDDA
--
+
 sim
 ABFFBB
--
+
 não
 O usuário digita uma letra e tecla enter até que ele digite x e enter para
 terminar a sequência.

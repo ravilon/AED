@@ -33,15 +33,20 @@ nome[10]char // idade[1]int // telefone[1]int
 
 // ======================================Declaração de Variáveis=================================
 
-void **pTracker;
-void *pHead;                                  // Ponteiro que guarda o Buffer ( endereço do primeiro e ultimo )
+void **pTracker;                
+void **pNext;
+void **pPrev;    
+
+void *pHead;                                    // Ponteiro que guarda o Buffer ( endereço do primeiro e ultimo )                                
 void *pPosition;                                // Ponteiro que guarda o próximo endereço vazio no buffer
 
 void *pPeople;                                  // Ponteiro que guarda a Pessoa
 char *pName;                                    // Ponteiro que guarda o nome a ser adcionado ao pessoa
+char *pNameNode;
 int  *pAge;                                     // Ponteiro que guarda a idade a ser adcionado ao pessoa
 int  *pNumber;                                  // Ponteiro que guarda o numero a ser adcionado ao pessoa
 
+int *pResult;
 int *pCounterPeople;                            // Ponteiro que guarda o número de Pessoas na agenda
 int *pMenu;                                     // Ponteiro que guarda a opção do menu
 int *pContador;                                 // Ponteiro usado como contador em laços de repetição
@@ -70,9 +75,9 @@ Main
 ====================
 */
 int main () {
-
+    pNext = (void**)malloc(sizeof(void**));
+    pPrev = (void**)malloc(sizeof(void**));
     pMenu = (int*)malloc( sizeof( int ) ); 
-    pTamanhoBuffer = (int*)malloc( sizeof( int ) );
     pCounterPeople = (int*)malloc( sizeof( int ) ); 
 
     *(int*)pCounterPeople = 0; // Numero de Pessoas na Lista
@@ -126,59 +131,6 @@ void Menu() {
     printf( "Obrigado!" );
     }
 }
-/*
-====================
-RESET
-
-Starts the linked list
-====================
-*/
-void RESET( pPeople ) {
-
-//============header=================//
-pHead = malloc(2*sizeof(void**));
-*(void**)pHead = pPeople;
-pTracker = pHead;
-
-pHead += sizeof(void**);
-*(void**)pHead = pPeople;
-pHead -= sizeof(void**);
-//===================================//
-
-*(void**)pPosition = NULL;
-pPosition += sizeof(void**);
-*(void**)pPosition = NULL; 
-
-}
-
-/*
-====================
-PUSH
-
-Insert element on linked list
-====================
-*/
-void PUSH( pPeople ) {
-pContador = ( int* )malloc( sizeof( int ) );
-
-if ( pHead == NULL ) {
-    RESET( pPeople );
-}
-
-char *pNameNode;
-pNameNode = malloc(10*sizeof(char));
-pTracker = *( void** )pHead;
-
-else{
-    for (*( int* )pContador = 0; i < *( int* )pCounterPeople; *( int* )pContador++) {               
-            
-            memcpy (pNameNode, *(void**)pTracker, sizeof(10*char) );
-            int *result = getLexographicallyOrder(pName, pNameNode);
-
-    }
-}
-
-}
 
 /*
 ====================
@@ -215,14 +167,169 @@ scanf( "%d", pNumber );
 memcpy( pPosition, pNumber, sizeof( int ));
 pPosition += sizeof( int );
 
-*(int*)pCounterPeople = *(int*)pCounterPeople + 1;
-
 PUSH( pPeople );
 free( pNumber );
 free( pName );
 free( pAge );
 Menu();
 }
+
+/*
+====================
+RESET
+
+Starts the linked list
+====================
+*/
+void RESET( ) {
+
+//============header=================//
+pHead = malloc(2*sizeof(void**));
+*(void**)pHead = pPeople;
+pTracker = pHead;
+
+pHead += sizeof(void**);
+*(void**)pHead = pPeople;
+pHead -= sizeof(void**);
+//===================================//
+
+*(void**)pPosition = NULL;
+pPosition += sizeof(void**);
+*(void**)pPosition = NULL; 
+
+}
+
+/*
+====================
+PUSH
+
+Insert element on linked list
+====================
+*/
+void PUSH( ) {
+pContador = ( int* )malloc( sizeof( int ) );
+
+if ( pHead == NULL ) {
+    RESET( pPeople );
+*(int*)pCounterPeople = *(int*)pCounterPeople + 1;
+}
+
+else{
+pResult = malloc(sizeof(int));    
+pNameNode = malloc(10*sizeof(char));
+
+pTracker = pHead;
+
+
+    for (*( int* )pContador = 0; *( int* )pContador < *( int* )pCounterPeople; *( int* )pContador++) {               
+    
+    pNext = *( void** )pTracker + sizeof 10* sizeof(char) + 2*sizeof(int);
+    pPrev = *( void** )pTracker + sizeof 10* sizeof(char) + 2*sizeof(int) + sizeof(void**);   
+            
+            // recebendo o nome da pessoa no nó
+            memcpy (pNameNode, (void**)pTracker, 10*sizeof(char) );  
+            // pName já tem o nome da ultima pessoa adicionada
+            *(int*)pResult = strcmp( pName, pNameNode);              
+            
+            if (*(int*)pResult < 0) {
+            // Se for na primeira quer dizer que a head será trocada
+                if (*(int*)pContador == 0) {            
+                    
+                    pPosition = pPeople;
+                    pPosition += sizeof 10* sizeof( char ) + 2*sizeof( int );
+                    
+            // aprensento a head anterior como sendo o next dele
+                    memcpy (pPosition, pHead, sizeof( void** ) );
+                    pPosition += sizeof(void**);  
+                    
+            // Atualizando o FIRST da HEAD              
+                    *( void** )pPosition = NULL;
+                    *( void** )pPrev = pPeople;                                       
+                    *( void** )pHead = pPeople;                   
+                    break;
+                }
+
+            // está no meio da lista
+                else {
+                    pPosition = pPeople;
+
+            // atualizando o NEXT e PREV 
+                    pPosition += sizeof 10* sizeof( char ) + 2*sizeof( int ) ;  
+                    memcpy (pPosition, ( void** )pNext, sizeof( void** ) );
+                    pPosition + sizeof( void** ) ;  
+                    memcpy (pPosition, ( void** )pPrev, sizeof( void** ) );
+
+            // Atualizar o Prev do NEXT do People
+                    pPosition = (void**)pPrev;                 
+                    pPosition += sizeof 10* sizeof( char ) + 2*sizeof( int ) ; 
+                    memcpy (pPosition, ( void** )pTracker, sizeof( void** ) );
+                                      
+
+            // Atualizar o NEXT do PREV do People
+                    pPosition = (void**)pNext;                 
+                    pPosition += sizeof 10* sizeof( char ) + 2*sizeof( int ) + sizeof(void**) ; 
+                    memcpy (pPosition, ( void** )pTracker, sizeof( void** ) );
+                    break;
+                }
+            }
+            
+            else if (*(int*)pResult > 0) {
+            // LAST
+                if (*(int*)pContador == *( int* )pCounterPeople -1 ) { 
+                    pPosition = pPeople;
+
+            // aprensento a last anterior como PREV 
+                    pPosition += sizeof 10* sizeof( char ) + 2*sizeof( int ) + sizeof( void** );  
+                    memcpy (pPosition, ( void** )pTracker, sizeof( void** ) );
+
+            // nada depois dele por ser LAST
+                    pPosition -= sizeof(void**);                    
+                    *(void**)pPosition = NULL;                   
+
+            // atualizando o last no ponteiro HEAD
+                    pPosition = pHead;
+                    pPosition += sizeof( void** );               
+                    memcpy (pPosition, ( void** )pTracker, sizeof( void** ) );
+                    break;
+                }
+
+                else {
+                pTracker = pNext;
+                }
+            }
+
+            else if (*(int*)pResult == 0)
+            {
+            pPosition = pPeople;
+
+            // atualizando o NEXT e PREV 
+                    pPosition += sizeof 10* sizeof( char ) + 2*sizeof( int ) ;  
+                    memcpy (pPosition, ( void** )pNext, sizeof( void** ) );
+                    pPosition + sizeof( void** ) ;  
+                    memcpy (pPosition, ( void** )pPrev, sizeof( void** ) );
+
+            // Atualizar o Prev do NEXT do People
+                    pPosition = (void**)pPrev;                 
+                    pPosition += sizeof 10* sizeof( char ) + 2*sizeof( int ) ; 
+                    memcpy (pPosition, ( void** )pTracker, sizeof( void** ) );
+                                      
+
+            // Atualizar o NEXT do PREV do People
+                    pPosition = (void**)pNext;                 
+                    pPosition += sizeof 10* sizeof( char ) + 2*sizeof( int ) + sizeof(void**) ; 
+                    memcpy (pPosition, ( void** )pTracker, sizeof( void** ) );
+                    break;
+            }
+    }
+pTracker = pHead;
+pNext = *( void** )pTracker + sizeof 10* sizeof(char) + 2*sizeof(int) ;  
+*(int*)pCounterPeople = *(int*)pCounterPeople + 1;
+}
+
+free( pNameNode );
+free( pResult );
+}
+
 
 /*
 ====================
@@ -273,7 +380,7 @@ pAge = ( int* )malloc( sizeof( int ) );
 pNumber = ( int*)malloc( sizeof( int ) );
 pContador = ( int* )malloc( sizeof( int ) );
 
-pPosition = pHead;
+/*
 
 for (*( int* )pContador = 0; *( int* )pContador < *( int* )pCounterPeople; *( int* )pContador = *( int* )pContador + 1) {
     printf( "================Pessoa %d===============\n", *( int* )pContador );
@@ -295,7 +402,7 @@ for (*( int* )pContador = 0; *( int* )pContador < *( int* )pCounterPeople; *( in
 
     printf( "======================================\n" );
     }
-
+*/
 free( pContador);
 free( pName );
 free( pAge );
@@ -304,17 +411,5 @@ free( pNumber );
 Menu();
 }
 
-int* getLexographicallyOrder(char* str1, char* str2){
-            while (str1 &&str2 && str1 ==str2) {
-            str1++;
-            str2++;
-            }
-            int *result = malloc(sizeof(int));
-            result = (str1 - str2);
-            if (result < 0)
-            result = -1;
-            else if (result > 0)
-            *result = 1;
-            return result;
-}
+
 

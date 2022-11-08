@@ -50,7 +50,8 @@ Funcionando 50%
 
 ================================================================
 
-#Atividade Avaliativa_03 04/11 em: AtividadeAvaliativa_03/AtividadeAvaliativa_03 
+#Atividade Avaliativa_03 04/11 em: AtividadeAvaliativa_03/AtividadeAvaliativa3_2.0.c
+
 
 Implementar uma árvore de busca e verificar se ela está balanceada
 

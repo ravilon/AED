@@ -99,8 +99,8 @@ void isBalanced ( Node *pRoot ){
     }
     else
     {
-        int heightLeft = HeightTree( pRoot->left );
-        int heightRight = HeightTree( pRoot->right );
+        int heightLeft = heightTree( pRoot->left );
+        int heightRight = heightTree( pRoot->right );
         if (abs( heightLeft - heightRight ) > 1)
         {
             printf( "A arvore nao esta balanceada! \n" );

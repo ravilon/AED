@@ -3,7 +3,7 @@ Repositório de estudos da dsciplina de Algoritmos e Estrutura de Dados
 
 ## Aluno: Rávilon Aguiar Dos Santos
 ### Link para documento com identação utilizada : https://fabiensanglard.net/fd_proxy/doom3/CodeStyleConventions.pdf
-====================================================================================================================
+================================================================
 
 #Atividade Avaliativa_01 26/08 em: AtividadeAvaliativa_01/exercicio-ras.c
 
@@ -21,7 +21,7 @@ Video explicando em: https://drive.google.com/file/d/1EbHh6i4ilDELiXD9-DEEVtQy3T
 
 Funcionando - TUDO
 
-=====================================================================================================================
+================================================================
 
 #Atividade Avaliativa_02 23/09 em: AtividadeAvaliativa_02/AtividadeAvaliativa02.c
 
@@ -48,7 +48,8 @@ https://drive.google.com/file/d/1APaTvsHWxxVMtvmYzlRCvc-rn4kRfc7U/view?usp=shari
 
 Funcionando 50%
 
-=========================================================================================================================
+================================================================
+
 #Atividade Avaliativa_03 04/11 em: AtividadeAvaliativa_03/AtividadeAvaliativa_03 
 
 Implementar uma árvore de busca e verificar se ela está balanceada

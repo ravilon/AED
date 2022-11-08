@@ -3,9 +3,9 @@ Repositório de estudos da dsciplina de Algoritmos e Estrutura de Dados
 
 ## Aluno: Rávilon Aguiar Dos Santos
 ### Link para documento com identação utilizada : https://fabiensanglard.net/fd_proxy/doom3/CodeStyleConventions.pdf
-====================================================================================================================
+================================================================
 
-#Atividade Avaliativa 26/08 em: AtividadeAvaliativa_01/exercicio-ras.c
+#Atividade Avaliativa_01 26/08 em: AtividadeAvaliativa_01/exercicio-ras.c
 
 Faça um programa que solicita do usuário uma série de números, cada número pode ser um
 int, float ou double. Antes de solicitar o número pergunte qual tipo de dado o usuário vai entrar.
@@ -21,9 +21,9 @@ Video explicando em: https://drive.google.com/file/d/1EbHh6i4ilDELiXD9-DEEVtQy3T
 
 Funcionando - TUDO
 
-=====================================================================================================================
+================================================================
 
-#Atividade Avaliativa 23/09 em: AtividadeAvaliativa_02/AtividadeAvaliativa02.c
+#Atividade Avaliativa_02 23/09 em: AtividadeAvaliativa_02/AtividadeAvaliativa02.c
 
 Fazer um programa que testa se uma sequência de caracteres fornecida pelo
 usuário é um palíndromo, ou seja, é uma palavra cuja primeira metade é
@@ -48,18 +48,14 @@ https://drive.google.com/file/d/1APaTvsHWxxVMtvmYzlRCvc-rn4kRfc7U/view?usp=shari
 
 Funcionando 50%
 
-=========================================================================================================================
-Trabalho 
+================================================================
 
-•Continuar a sua implementação da agenda (exercício 3) semana 1 dentro dos mesmo parâmetros, mas incluir o seguinte.
-Nenhuma variável pode ser declarada em todo o programa, somente ponteiros. Todos os dados do programa devem ser guardados dentro do pBuffer.
-Nem mesmo como parâmetro de função. Só ponteiros que apontam para dentro do pBuffer.
-Exemplo do que não pode: int c; char a; int v[10];  void Funcao(int parametro)
-Não pode usar struct em todo o programa.
-Usar fila ordenada (heap) para armazenar as pessoas em ordem alfabética sempre que o usuário incluir uma nova pessoa.
-Implementar a base de dados da agenda usando lista duplamente ligada
-Somente essa base de dados pode ficar fora do buffer principal, ou seja, pode usar um malloc para cada nodo.
+#Atividade Avaliativa_03 04/11 em: AtividadeAvaliativa_03/AtividadeAvaliativa_03 
+
+Implementar uma árvore de busca e verificar se ela está balanceada
 
 Video Explicando:
+
+Funcionando 100%
 
 

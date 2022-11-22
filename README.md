@@ -50,7 +50,8 @@ Funcionando 50%
 
 ================================================================
 
-#Atividade Avaliativa_03 04/11 em: AtividadeAvaliativa_03/AtividadeAvaliativa_03 
+#Atividade Avaliativa_03 04/11 em: AtividadeAvaliativa_03/AtividadeAvaliativa3_2.0.c
+
 
 Implementar uma árvore de busca e verificar se ela está balanceada
 
@@ -58,4 +59,14 @@ Video Explicando:
 
 Funcionando 100%
 
+================================================================
 
+#Atividade Avaliativa_03 18/11 em: AtividadeAvaliativa_04/AtividadeAvaliativa_04.c
+
+Dado um vetor nums contendo n número inteiros positivos e únicos encontre o número
+faltante na sequência. Assuma que somente um número está faltando para completar a
+sequência numérica.
+
+Video Explicando:
+
+Funcionando 100%

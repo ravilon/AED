@@ -59,4 +59,14 @@ Video Explicando:
 
 Funcionando 100%
 
+================================================================
 
+#Atividade Avaliativa_03 18/11 em: AtividadeAvaliativa_04/AtividadeAvaliativa_04.c
+
+Dado um vetor nums contendo n número inteiros positivos e únicos encontre o número
+faltante na sequência. Assuma que somente um número está faltando para completar a
+sequência numérica.
+
+Video Explicando:
+
+Funcionando 100%

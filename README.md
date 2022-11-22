@@ -61,12 +61,12 @@ Funcionando 100%
 
 ================================================================
 
-#Atividade Avaliativa_03 18/11 em: AtividadeAvaliativa_04/AtividadeAvaliativa_04.c
+#Atividade Avaliativa_04 18/11 em: AtividadeAvaliativa_04/AtividadeAvaliativa_04.c
 
 Dado um vetor nums contendo n número inteiros positivos e únicos encontre o número
 faltante na sequência. Assuma que somente um número está faltando para completar a
 sequência numérica.
 
-Video Explicando:
+Video Explicando:https://drive.google.com/file/d/1EEmnJJVBT9SDTMug-7wwq21Fvjjil6Ol/view?usp=share_link
 
 Funcionando 100%
